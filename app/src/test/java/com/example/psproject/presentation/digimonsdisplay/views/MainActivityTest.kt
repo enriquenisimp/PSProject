@@ -1,4 +1,4 @@
-package com.example.psproject.presentation.digimons_display.views
+package com.example.psproject.presentation.digimonsdisplay.views
 
 
 internal class MainActivityTest {

@@ -1,4 +1,4 @@
-package com.example.psproject.presentation.digimons_display
+package com.example.psproject.presentation.digimonsdisplay.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,16 +9,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.psproject.R
 import com.example.psproject.data.model.DigimonModel
+import javax.inject.Inject
 
-class DigimonAdapter(private val digimons: ArrayList<DigimonModel>) :
+class DigimonAdapter @Inject constructor(private val digimons: ArrayList<DigimonModel>) :
     RecyclerView.Adapter<DigimonAdapter.ViewHolder>() {
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+    private lateinit var onClickListener: ((DigimonModel) -> Unit)
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val textView: TextView
         private val lvltextView: TextView
         private val imageView: ImageView
 
+
         init {
-            // Define click listener for the ViewHolder's View.
             textView = view.findViewById(R.id.digimonTextViewItem)
             imageView = view.findViewById(R.id.imageView)
             lvltextView = view.findViewById(R.id.lvltextView)
@@ -32,9 +36,10 @@ class DigimonAdapter(private val digimons: ArrayList<DigimonModel>) :
                     .load(digimonModel.img)
                     .into(imageView)
             }
+            itemView.setOnClickListener { onClickListener(digimonModel) }
         }
-
     }
+
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -45,16 +50,14 @@ class DigimonAdapter(private val digimons: ArrayList<DigimonModel>) :
         return ViewHolder(view)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int, ) {
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
             viewHolder.bind(digimons[position])
     }
-
-    // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = digimons.size
+
+    fun setItemClickListener(listener: ((DigimonModel) -> Unit)) {
+        onClickListener = listener
+    }
 
     fun addDigimonsToList(newDigimons:List<DigimonModel>?){
         this.digimons.apply {
