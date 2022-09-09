@@ -8,45 +8,41 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.psproject.R
-import com.example.psproject.data.model.DigimonModel
-import javax.inject.Inject
+import com.example.psproject.presentation.digimonsdisplay.uimodel.UiDigimonModel
 
-class DigimonAdapter @Inject constructor(private val digimons: ArrayList<DigimonModel>) :
+class DigimonAdapter(private val digimons: ArrayList<UiDigimonModel>) :
     RecyclerView.Adapter<DigimonAdapter.ViewHolder>() {
 
-    private lateinit var onClickListener: ((DigimonModel) -> Unit)
+    private lateinit var onClickListener: ((UiDigimonModel) -> Unit)
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val textView: TextView
-        private val lvltextView: TextView
+        private val lvlTextView: TextView
         private val imageView: ImageView
 
 
         init {
             textView = view.findViewById(R.id.digimonTextViewItem)
             imageView = view.findViewById(R.id.imageView)
-            lvltextView = view.findViewById(R.id.lvltextView)
+            lvlTextView = view.findViewById(R.id.lvltextView)
         }
 
-        fun bind(digimonModel: DigimonModel){
+        fun bind(digimon: UiDigimonModel){
             itemView.apply{
-                textView.text = digimonModel.name
-                lvltextView.text = "Level: "+digimonModel.level
+                textView.text = digimon.name
+                lvlTextView.text = "Level: "+digimon.level
                 Glide.with(imageView.context)
-                    .load(digimonModel.img)
+                    .load(digimon.img)
                     .into(imageView)
             }
-            itemView.setOnClickListener { onClickListener(digimonModel) }
+            itemView.setOnClickListener { onClickListener(digimon) }
         }
     }
 
 
-    // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.text_row_item, viewGroup, false)
-
         return ViewHolder(view)
     }
 
@@ -55,11 +51,11 @@ class DigimonAdapter @Inject constructor(private val digimons: ArrayList<Digimon
     }
     override fun getItemCount() = digimons.size
 
-    fun setItemClickListener(listener: ((DigimonModel) -> Unit)) {
+    fun setItemClickListener(listener: ((UiDigimonModel) -> Unit)) {
         onClickListener = listener
     }
 
-    fun addDigimonsToList(newDigimons:List<DigimonModel>?){
+    fun addDigimonsToList(newDigimons:List<UiDigimonModel>?){
         this.digimons.apply {
             clear()
             if (newDigimons != null) {

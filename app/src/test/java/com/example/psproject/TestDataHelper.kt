@@ -1,8 +1,6 @@
 
 import com.example.psproject.data.model.DigimonModel
 import com.example.psproject.utils.Resource
-import com.google.gson.Gson
-import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.Response.success
 
@@ -32,7 +30,7 @@ fun getSuccessResourceOfGetAllDigimons(): Resource<List<DigimonModel>?> {
     return Resource.Success(digimons)
 }
 
-fun getSuccessResourceDetailDigimon(name: String): Resource<List<DigimonModel?>> {
+fun getSuccessResourceDetailDigimon(name: String): Resource<List<DigimonModel>?> {
     val digimons = getDigimonsList(name)
     return Resource.Success(digimons)
 }

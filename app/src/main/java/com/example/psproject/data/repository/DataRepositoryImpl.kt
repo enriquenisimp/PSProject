@@ -16,7 +16,7 @@ class DataRepositoryImpl @Inject constructor(private val serviceApi: ServiceApi)
             }
     }
 
-    suspend fun getDigimonRepository(name:String):Resource<List<DigimonModel?>>{
+    suspend fun getDigimonRepository(name:String):Resource<List<DigimonModel>?>{
         return safeApiCall{
             serviceApi.getDigimonDetailApi(name)
         }

@@ -22,56 +22,50 @@ class DigimonDetail : Fragment() {
     private val args: DigimonDetailArgs by navArgs()
     private val digimonViewModel by viewModels<DigimonDetailViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentDigimonDetailBinding.inflate(inflater,container,false)
-        digimonViewModel.getDigimon(args.digimonName)
-        viewModelSetUp()
-
-        (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        // Inflate the layout for this fragment
-        return binding.root
+       return FragmentDigimonDetailBinding.inflate(inflater,container,false).also {
+           binding = it
+        }.root
     }
 
-    private fun viewModelSetUp(){
-        digimonViewModel.digimon.observe(viewLifecycleOwner, Observer {
-            it.let {
-                resource ->  when(resource.status){
-                Status.SUCCESS -> {
-                    binding.imgDigimon.visibility = View.VISIBLE
-                    binding.linearDataDetail.visibility = View.VISIBLE
-                    binding.pbDetail.visibility= View.GONE
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-                    binding.tvNameDigimonDetail.text = it.data!![0]!!.name
-                    binding.tvLevelDigimonDetail.text = it.data[0]!!.level
-                    Glide.with(binding.imgDigimon.context)
-                        .load(it.data[0]!!.img)
-                        .into(binding.imgDigimon)
-                }
-                Status.LOADING -> {
-                    binding.imgDigimon.visibility = View.GONE
-                    binding.linearDataDetail.visibility = View.GONE
-                    binding.pbDetail.visibility= View.VISIBLE
-                }
-                Status.ERROR -> {
-                    binding.imgDigimon.visibility = View.GONE
-                    binding.linearDataDetail.visibility = View.GONE
-                    binding.pbDetail.visibility= View.GONE
-                }
+        viewModelSetUp()
+        digimonViewModel.getDigimon(args.digimonName)
+    }
+    private fun viewModelSetUp(){
+        digimonViewModel.digimon.observe(viewLifecycleOwner) {
+            it.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        binding.imgDigimon.visibility = View.VISIBLE
+                        binding.linearDataDetail.visibility = View.VISIBLE
+                        binding.pbDetail.visibility = View.GONE
+
+                        binding.tvNameDigimonDetail.text = it.data!![0].name
+                        binding.tvLevelDigimonDetail.text = it.data[0].level
+                        Glide.with(binding.imgDigimon.context)
+                            .load(it.data[0].img)
+                            .into(binding.imgDigimon)
+                    }
+                    Status.LOADING -> {
+                        binding.imgDigimon.visibility = View.GONE
+                        binding.linearDataDetail.visibility = View.GONE
+                        binding.pbDetail.visibility = View.VISIBLE
+                    }
+                    Status.ERROR -> {
+                        binding.imgDigimon.visibility = View.GONE
+                        binding.linearDataDetail.visibility = View.GONE
+                        binding.pbDetail.visibility = View.GONE
+                    }
                 }
             }
-        })
-
-
-
+        }
     }
 
 }

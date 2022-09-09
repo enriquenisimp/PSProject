@@ -20,6 +20,7 @@ import com.example.psproject.R
 import com.example.psproject.data.model.DigimonModel
 import com.example.psproject.databinding.FragmentDigimonListBinding
 import com.example.psproject.presentation.digimonsdisplay.adapter.DigimonAdapter
+import com.example.psproject.presentation.digimonsdisplay.uimodel.UiDigimonModel
 import com.example.psproject.presentation.digimonsdisplay.viewmodel.DigimonsViewmodel
 import com.example.psproject.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +29,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DigimonListFragment : Fragment() {
 
-    @Inject
     lateinit var digimonAdapter: DigimonAdapter
     private val digimonViewModel by viewModels<DigimonsViewmodel>()
 
@@ -39,16 +39,22 @@ class DigimonListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentDigimonListBinding.inflate(inflater,container,false)
+        return FragmentDigimonListBinding.inflate(inflater,container,false).also {
+            binding =it
+        }.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         setUpUI()
-        digimonViewModel.getAllDigimons()
         setUpObservers()
-        (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(false)
-        return binding.root
+        digimonViewModel.getAllDigimons()
     }
 
     private fun setUpUI(){
+        digimonAdapter = DigimonAdapter(arrayListOf())
+
         binding.rvDigimonList.layoutManager = LinearLayoutManager(binding.root.context)
         binding.rvDigimonList.addItemDecoration(
             DividerItemDecoration(
@@ -91,7 +97,7 @@ class DigimonListFragment : Fragment() {
         findNavController().navigate(actionToGoDetails)
     }
 
-    private fun retrieveList(digimons: List<DigimonModel>) {
+    private fun retrieveList(digimons: List<UiDigimonModel>) {
         digimonAdapter.setItemClickListener {
             gotToDetail(it.name)
         }

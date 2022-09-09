@@ -4,7 +4,6 @@ import com.example.psproject.application.DigimonApplication
 import com.example.psproject.data.model.DigimonModel
 import com.example.psproject.data.repository.DataRepository
 import com.example.psproject.data.repository.DataRepositoryImpl
-import com.example.psproject.domain.usecases.Usecases
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

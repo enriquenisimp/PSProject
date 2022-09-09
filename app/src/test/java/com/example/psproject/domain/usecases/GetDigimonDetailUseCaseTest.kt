@@ -17,7 +17,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class UsecasesTest {
+class GetDigimonDetailUseCaseTest {
 
     @get:Rule
     val mockkRule = MockKRule(this)
@@ -28,30 +28,20 @@ class UsecasesTest {
     @MockK
     private lateinit var repository: DataRepositoryImpl
 
-    private lateinit var usecases: Usecases
+    private lateinit var getDetailDigimonUseCase: GetDetailDigimonUseCase
 
     @Before
     fun setUp() {
-        usecases = Usecases(
+        getDetailDigimonUseCase = GetDetailDigimonUseCase(
             repository
         )
-    }
-
-    @Test
-    fun getAllDigimonsUseCaseTest() {
-        runTest {
-            coEvery { repository.getAllDigimonsRepository() } returns getSuccessResourceOfGetAllDigimons()
-     val digimons = usecases.getAllDigimonsUseCase()
-            Assert.assertTrue(digimons is Resource.Success)
-            Assert.assertEquals(digimons.data, getDigimonsList())
-        }
     }
 
     @Test
     fun getDetailDigimonUseCaseTest() {
         runTest {
             coEvery { repository.getDigimonRepository("agumon") } returns getSuccessResourceDetailDigimon("agumon")
-            val digimons = usecases.getDigimonDetailUseCase("agumon")
+            val digimons = getDetailDigimonUseCase("agumon")
             Assert.assertTrue(digimons is Resource.Success)
             Assert.assertEquals(digimons.data, getDigimonsList("agumon"))
         }

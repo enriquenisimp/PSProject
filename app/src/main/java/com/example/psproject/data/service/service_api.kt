@@ -10,5 +10,5 @@ interface ServiceApi {
     suspend fun getDigimonsApi() : Response<List<DigimonModel>?>
 
     @GET("/api/digimon/name/{name}")
-    suspend fun getDigimonDetailApi(@Path("name") name:String) : Response<List<DigimonModel?>>
+    suspend fun getDigimonDetailApi(@Path("name") name:String) : Response<List<DigimonModel>?>
 }

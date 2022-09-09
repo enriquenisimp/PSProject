@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.psproject.data.model.DigimonModel
-import com.example.psproject.domain.usecases.Usecases
+import com.example.psproject.domain.usecases.GetDetailDigimonUseCase
+import com.example.psproject.presentation.digimonsdisplay.mapper.toListOfUIDigimons
+import com.example.psproject.presentation.digimonsdisplay.uimodel.UiDigimonModel
 import com.example.psproject.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -15,23 +17,25 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DigimonDetailViewModel @Inject constructor(
-    private val usecases: Usecases,
+    private val getDetailDigimonUseCase: GetDetailDigimonUseCase,
     private val dispatcher: CoroutineDispatcher): ViewModel() {
 
-    private val _digimon: MutableLiveData<Resource<List<DigimonModel?>>> = MutableLiveData()
+    private val _digimon: MutableLiveData<Resource<List<UiDigimonModel>?>> = MutableLiveData()
 
-    val digimon: LiveData<Resource<List<DigimonModel?>>> get() =_digimon
+    val digimon: LiveData<Resource<List<UiDigimonModel>?>> get() =_digimon
 
     fun getDigimon(name:String) =
         viewModelScope.launch(dispatcher){
             _digimon.postValue(Resource.Loading())
 
-            val result =usecases.getDigimonDetailUseCase(name)
+            val result =getDetailDigimonUseCase(name)
 
             try{
                 if(result is Resource.Success){
                     result.data?.let {
-                        _digimon.postValue(Resource.Success(data = it))
+
+                        val uiDigimon = it.toListOfUIDigimons()
+                        _digimon.postValue(Resource.Success(data = uiDigimon))
                     }
                 }}catch (e:Exception){
                 Log.d("detail", e.message.toString())
