@@ -8,7 +8,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 @InstallIn(ViewModelComponent::class)
 @Module
-class ViewModelComponents {
+class ViewModelModule {
     @Provides
     fun provideIODispatcher(): CoroutineDispatcher{
         return Dispatchers.IO

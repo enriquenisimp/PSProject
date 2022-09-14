@@ -8,12 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.psproject.R
-import com.example.psproject.presentation.digimonsdisplay.uimodel.UiDigimonModel
+import com.example.psproject.presentation.digimonsdisplay.uimodel.DigimonUIModel
 
-class DigimonAdapter(private val digimons: ArrayList<UiDigimonModel>) :
+class DigimonAdapter(private val digimons: ArrayList<DigimonUIModel>) :
     RecyclerView.Adapter<DigimonAdapter.ViewHolder>() {
 
-    private lateinit var onClickListener: ((UiDigimonModel) -> Unit)
+    private lateinit var onClickListener: ((DigimonUIModel) -> Unit)
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val textView: TextView
@@ -27,7 +27,7 @@ class DigimonAdapter(private val digimons: ArrayList<UiDigimonModel>) :
             lvlTextView = view.findViewById(R.id.lvltextView)
         }
 
-        fun bind(digimon: UiDigimonModel){
+        fun bind(digimon: DigimonUIModel){
             itemView.apply{
                 textView.text = digimon.name
                 lvlTextView.text = "Level: "+digimon.level
@@ -51,11 +51,11 @@ class DigimonAdapter(private val digimons: ArrayList<UiDigimonModel>) :
     }
     override fun getItemCount() = digimons.size
 
-    fun setItemClickListener(listener: ((UiDigimonModel) -> Unit)) {
+    fun setItemClickListener(listener: ((DigimonUIModel) -> Unit)) {
         onClickListener = listener
     }
 
-    fun addDigimonsToList(newDigimons:List<UiDigimonModel>?){
+    fun addDigimonsToList(newDigimons:List<DigimonUIModel>?){
         this.digimons.apply {
             clear()
             if (newDigimons != null) {

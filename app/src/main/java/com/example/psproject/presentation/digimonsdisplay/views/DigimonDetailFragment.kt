@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.psproject.databinding.FragmentDigimonDetailBinding
@@ -16,10 +14,10 @@ import com.example.psproject.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DigimonDetail : Fragment() {
+class DigimonDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDigimonDetailBinding
-    private val args: DigimonDetailArgs by navArgs()
+    private val args: DigimonDetailFragmentArgs by navArgs()
     private val digimonViewModel by viewModels<DigimonDetailViewModel>()
 
     override fun onCreateView(

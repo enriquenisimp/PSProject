@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presentation.digimonsdisplay.views.DigimonDetail">
+    tools:context=".presentation.digimonsdisplay.views.DigimonDetailFragment">
 
     <ImageView
         android:id="@+id/imgDigimon"

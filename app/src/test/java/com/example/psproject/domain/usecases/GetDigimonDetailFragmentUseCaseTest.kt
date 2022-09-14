@@ -17,7 +17,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class GetDigimonDetailUseCaseTest {
+class GetDigimonDetailFragmentUseCaseTest {
 
     @get:Rule
     val mockkRule = MockKRule(this)

@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.psproject.data.repository.DataRepositoryImpl
 import com.example.psproject.utils.Resource
 import getDigimonsList
-import getSuccessResourceDetailDigimon
 import getSuccessResourceOfGetAllDigimons
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -28,11 +27,11 @@ class GetAllDigimonsUsecaseTest {
     @MockK
     private lateinit var repository: DataRepositoryImpl
 
-    private lateinit var getAllDigimons: GetAllDigimonsUsecases
+    private lateinit var getAllDigimons: GetAllDigimonsUsecase
 
     @Before
     fun setUp() {
-        getAllDigimons = GetAllDigimonsUsecases(
+        getAllDigimons = GetAllDigimonsUsecase(
             repository
         )
     }

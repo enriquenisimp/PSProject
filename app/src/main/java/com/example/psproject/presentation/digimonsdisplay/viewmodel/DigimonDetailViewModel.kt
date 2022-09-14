@@ -5,10 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.psproject.data.model.DigimonModel
 import com.example.psproject.domain.usecases.GetDetailDigimonUseCase
 import com.example.psproject.presentation.digimonsdisplay.mapper.toListOfUIDigimons
-import com.example.psproject.presentation.digimonsdisplay.uimodel.UiDigimonModel
+import com.example.psproject.presentation.digimonsdisplay.uimodel.DigimonUIModel
 import com.example.psproject.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -20,9 +19,9 @@ class DigimonDetailViewModel @Inject constructor(
     private val getDetailDigimonUseCase: GetDetailDigimonUseCase,
     private val dispatcher: CoroutineDispatcher): ViewModel() {
 
-    private val _digimon: MutableLiveData<Resource<List<UiDigimonModel>?>> = MutableLiveData()
+    private val _digimon: MutableLiveData<Resource<List<DigimonUIModel>?>> = MutableLiveData()
 
-    val digimon: LiveData<Resource<List<UiDigimonModel>?>> get() =_digimon
+    val digimon: LiveData<Resource<List<DigimonUIModel>?>> get() =_digimon
 
     fun getDigimon(name:String) =
         viewModelScope.launch(dispatcher){

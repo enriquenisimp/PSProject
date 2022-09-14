@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/DigimonDetailFragment"
-        android:name="com.example.psproject.presentation.digimonsdisplay.views.DigimonDetail"
+        android:name="com.example.psproject.presentation.digimonsdisplay.views.DigimonDetailFragment"
         android:label="@string/detail_fragment_label"
         tools:layout="@layout/fragment_digimon_detail" >
         <argument
