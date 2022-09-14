@@ -4,14 +4,10 @@ import com.example.psproject.data.service.ServiceApi
 import com.example.psproject.utils.Constants
 import dagger.Module
 import dagger.Provides
-import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
-import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @InstallIn(ActivityRetainedComponent::class)
 @Module

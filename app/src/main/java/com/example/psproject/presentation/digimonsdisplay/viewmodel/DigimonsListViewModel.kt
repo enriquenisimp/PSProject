@@ -13,11 +13,11 @@ import javax.inject.Inject
 class DigimonsListViewModel @Inject constructor(
     private val getAllDigimonsUsecase: GetAllDigimonsUsecase,
     private val dispatcher: CoroutineDispatcher
-    ) : ViewModel() {
+) : ViewModel() {
 
-    private val _digimons:MutableLiveData<Resource<List<DigimonUIModel>>> = MutableLiveData()
+    private val _digimons: MutableLiveData<Resource<List<DigimonUIModel>>> = MutableLiveData()
 
-    val digimons:LiveData<Resource<List<DigimonUIModel>>> get() =_digimons
+    val digimons: LiveData<Resource<List<DigimonUIModel>>> get() = _digimons
 
 
     fun getAllDigimons() {

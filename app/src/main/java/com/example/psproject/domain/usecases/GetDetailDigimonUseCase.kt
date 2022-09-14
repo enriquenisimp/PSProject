@@ -9,6 +9,6 @@ class GetDetailDigimonUseCase @Inject constructor (private val dataRepository: D
 
     suspend operator fun invoke(name:String)
             : Resource<List<DigimonModel>?> {
-        return dataRepository.getDigimonRepository(name)
+        return dataRepository.getDigimonDetailRepository(name)
     }
 }

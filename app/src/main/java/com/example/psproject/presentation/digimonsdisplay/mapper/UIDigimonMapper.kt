@@ -5,11 +5,11 @@ import com.example.psproject.presentation.digimonsdisplay.uimodel.DigimonUIModel
 
 
 fun DigimonModel.toUIDigimon(): DigimonUIModel {
-        return DigimonUIModel(
-            this.name,
-            this.level,
-            this.img,
-        )
+    return DigimonUIModel(
+        this.name,
+        this.level,
+        this.img,
+    )
 }
 
 fun List<DigimonModel>.toListOfUIDigimons(): List<DigimonUIModel> {

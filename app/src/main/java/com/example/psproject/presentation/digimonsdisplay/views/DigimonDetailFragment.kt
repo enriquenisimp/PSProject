@@ -25,8 +25,8 @@ class DigimonDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-       return FragmentDigimonDetailBinding.inflate(inflater,container,false).also {
-           binding = it
+        return FragmentDigimonDetailBinding.inflate(inflater, container, false).also {
+            binding = it
         }.root
     }
 
@@ -36,30 +36,38 @@ class DigimonDetailFragment : Fragment() {
         viewModelSetUp()
         digimonViewModel.getDigimon(args.digimonName)
     }
-    private fun viewModelSetUp(){
+
+    private fun viewModelSetUp() {
         digimonViewModel.digimon.observe(viewLifecycleOwner) {
             it.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        binding.imgDigimon.visibility = View.VISIBLE
-                        binding.linearDataDetail.visibility = View.VISIBLE
-                        binding.pbDetail.visibility = View.GONE
+                        binding.apply {
+                            imgDigimon.visibility = View.VISIBLE
+                            linearDataDetail.visibility = View.VISIBLE
+                            pbDetail.visibility = View.GONE
 
-                        binding.tvNameDigimonDetail.text = it.data!![0].name
-                        binding.tvLevelDigimonDetail.text = it.data[0].level
-                        Glide.with(binding.imgDigimon.context)
-                            .load(it.data[0].img)
-                            .into(binding.imgDigimon)
+                            tvNameDigimonDetail.text = it.data!![0].name
+                            tvLevelDigimonDetail.text = it.data[0].level
+                            Glide.with(imgDigimon.context)
+                                .load(it.data[0].img)
+                                .into(imgDigimon)
+                        }
                     }
                     Status.LOADING -> {
-                        binding.imgDigimon.visibility = View.GONE
-                        binding.linearDataDetail.visibility = View.GONE
-                        binding.pbDetail.visibility = View.VISIBLE
+                        binding.apply {
+                            imgDigimon.visibility = View.GONE
+                            linearDataDetail.visibility = View.GONE
+                            pbDetail.visibility = View.VISIBLE
+                        }
                     }
                     Status.ERROR -> {
-                        binding.imgDigimon.visibility = View.GONE
-                        binding.linearDataDetail.visibility = View.GONE
-                        binding.pbDetail.visibility = View.GONE
+                        binding.apply {
+                            imgDigimon.visibility = View.GONE
+                            linearDataDetail.visibility = View.GONE
+                            pbDetail.visibility = View.GONE
+                        }
+
                     }
                 }
             }

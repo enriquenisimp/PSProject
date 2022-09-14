@@ -7,16 +7,17 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
 @ActivityRetainedScoped
-class DataRepositoryImpl @Inject constructor(private val serviceApi: ServiceApi) :
-    DataRepository() {
+class DataRepositoryImpl @Inject constructor(
+    private val serviceApi: ServiceApi) :
+    DataRepository, SafetyCall() {
 
-    suspend fun getAllDigimonsRepository():Resource<List<DigimonModel>?>{
+    override suspend fun getAllDigimonsRepository():Resource<List<DigimonModel>?>{
           return safeApiCall{
                serviceApi.getDigimonsApi()
             }
     }
 
-    suspend fun getDigimonRepository(name:String):Resource<List<DigimonModel>?>{
+    override suspend fun getDigimonDetailRepository(name: String): Resource<List<DigimonModel>?> {
         return safeApiCall{
             serviceApi.getDigimonDetailApi(name)
         }
