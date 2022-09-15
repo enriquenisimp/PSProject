@@ -1,4 +1,4 @@
-package com.example.psproject.utils
+package com.example.psproject.data
 
  class Constants {
     companion object {

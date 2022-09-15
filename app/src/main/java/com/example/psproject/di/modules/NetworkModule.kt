@@ -1,7 +1,7 @@
 package com.example.psproject.di.modules
 
 import com.example.psproject.data.service.ServiceApi
-import com.example.psproject.utils.Constants
+import com.example.psproject.data.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
